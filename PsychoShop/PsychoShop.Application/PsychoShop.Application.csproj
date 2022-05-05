@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PsychoShop.Application.Contracts\PsychoShop.Application.Contracts.csproj" />
+    <ProjectReference Include="..\PsychoShop.Domain\PsychoShop.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
