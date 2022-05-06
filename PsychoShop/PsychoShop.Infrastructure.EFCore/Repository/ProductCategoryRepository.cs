@@ -17,7 +17,9 @@ namespace PsychoShop.Infrastructure.EFCore.Repository
 
         public string GetProductCategorySlug(int id)
         {
-            throw new NotImplementedException();
+            return _context.ProductCategories
+                 .Select(x => new { x.Id, x.Slug })
+                 .AsNoTracking().FirstOrDefault(x => x.Id == id)?.Slug;
         }
 
         public EditProductCategory GetDetails(int id)

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ServiceHost.Models;
+using PsychoShop.Framework.Application;
+using ServiceHost.Areas.Admin.Models;
 using System.Diagnostics;
 
-namespace ServiceHost.Controllers
+namespace ServiceHost.Areas.Admin.Controllers
 {
+    [Area(AreaName.Admin)]
     public class HomeController : Controller
     {
         public IActionResult Index()

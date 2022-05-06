@@ -1,0 +1,87 @@
+﻿@model ProductCategoryModelSet
+@{
+    ViewData["Title"] = "ویرایش گروه محصول";
+    if (Model.Message != null && Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message != null && !Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <strong class="card-title">@ViewData["Title"]</strong>
+                </div>
+                <form method="post" asp-area="Admin" asp-controller="ProductCategory" asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" asp-for="EditProductCategory.Id" value="@Model.EditProductCategory.Id" />
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProductCategory.Name">نام</label>
+                                    <input asp-for="EditProductCategory.Name" type="text" class="form-control" placeholder="نام" onchange="makeSlug('EditProductCategory_Name', 'EditProductCategory_Slug')" />
+                                    <span asp-validation-for="EditProductCategory.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProductCategory.Slug">اسلاگ</label>
+                                    <input asp-for="EditProductCategory.Slug" type="text" class="form-control" placeholder="اسلاگ" />
+                                    <span asp-validation-for="EditProductCategory.Slug" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProductCategory.Keywords">کلمات کلیدی</label>
+                                    <input asp-for="EditProductCategory.Keywords" type="text" class="form-control" placeholder="کلمات کلیدی" />
+                                    <span asp-validation-for="EditProductCategory.Keywords" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="EditProductCategory.MetaDescription">توضیحات متا</label>
+                                    <textarea asp-for="EditProductCategory.MetaDescription" class="form-control" placeholder="توضیحات متا"></textarea>
+                                    <span asp-validation-for="EditProductCategory.MetaDescription" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-info">ویرایش</button>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="ProductCategory" asp-action="Index">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
