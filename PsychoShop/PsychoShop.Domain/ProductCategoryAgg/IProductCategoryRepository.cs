@@ -7,7 +7,7 @@ namespace PsychoShop.Domain.ProductCategoryAgg
     {
         string GetProductCategorySlug(int id);
         EditProductCategory GetDetails(int id);
-        Task<List<ProductCategoryViewModel>> GetProductCategories();
+        Task<List<ProductCategoryViewModel>> GetProductCategoriesList();
         Task<List<ProductCategoryViewModel>> Search(ProductCategorySearchModel searchModel);
     }
 }

@@ -1,11 +1,24 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using PsychoShop.Framework.Application;
 using PsychoShop.Infrastructure.Configuration;
+using ServiceHost;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PsychoShopDB");
 PsychoShopBootstrapper.Configure(builder.Services, connectionString);
+builder.Services.AddTransient<IFileUploader, FileUploader>();
+builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromDays(30);
+        options.Cookie.Name = "AuthIdentity";
+        options.LoginPath = "/Account/SignIn";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

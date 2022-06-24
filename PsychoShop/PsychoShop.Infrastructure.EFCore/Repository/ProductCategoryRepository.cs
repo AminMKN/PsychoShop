@@ -34,7 +34,7 @@ namespace PsychoShop.Infrastructure.EFCore.Repository
             }).FirstOrDefault(x => x.Id == id);
         }
 
-        public async Task<List<ProductCategoryViewModel>> GetProductCategories()
+        public async Task<List<ProductCategoryViewModel>> GetProductCategoriesList()
         {
             return await _context.ProductCategories.Select(x => new ProductCategoryViewModel()
             {

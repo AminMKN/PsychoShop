@@ -1,7 +1,7 @@
-﻿@model ProductCategoryModelSet
+﻿@model ProductCategoryAdminModel
 @{
     ViewData["Title"] = "ایجاد گروه محصول";
-    if (Model.Message != null && Model.IsSuccess)
+    if (Model.Message == ApplicationMessages.TaskSuccessful)
     {
         <script type="text/javascript">
             Swal.fire({
@@ -12,7 +12,7 @@
             })
         </script>
     }
-    else if (Model.Message != null && !Model.IsSuccess)
+    else if (Model.Message == ApplicationMessages.DuplicatedInfo)
     {
         <script type="text/javascript">
             Swal.fire({
@@ -32,7 +32,7 @@
                 <div class="card-header">
                     <strong class="card-title">@ViewData["Title"]</strong>
                 </div>
-                <form method="post" asp-area="Admin" asp-controller="ProductCategory" asp-action="Create">
+                <form method="post">
                     <div asp-validation-summary="ModelOnly"></div>
                     <div class="card-body">
                         <div class="row">

@@ -9,21 +9,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Architecture", "Architectur
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{EBA552E0-9321-464A-B6AA-E83B74EFBDA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsychoShop.Domain", "PsychoShop.Domain\PsychoShop.Domain.csproj", "{39856B76-9219-4F2B-ADEC-33AD847D6DD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsychoShop.Domain", "PsychoShop.Domain\PsychoShop.Domain.csproj", "{39856B76-9219-4F2B-ADEC-33AD847D6DD3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{1616F072-4763-4010-B527-E7E08B5ECD05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsychoShop.Application", "PsychoShop.Application\PsychoShop.Application.csproj", "{1768291A-7C03-4E93-A414-23580283EA84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsychoShop.Application", "PsychoShop.Application\PsychoShop.Application.csproj", "{1768291A-7C03-4E93-A414-23580283EA84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsychoShop.Application.Contracts", "PsychoShop.Application.Contracts\PsychoShop.Application.Contracts.csproj", "{C2D4A171-4385-4FC8-A485-853C1CA763FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsychoShop.Application.Contracts", "PsychoShop.Application.Contracts\PsychoShop.Application.Contracts.csproj", "{C2D4A171-4385-4FC8-A485-853C1CA763FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{08DC2FA5-FE17-45DE-B53D-90FCDDE97708}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsychoShop.Infrastructure.Configuration", "PsychoShop.Infrastructure.Configuration\PsychoShop.Infrastructure.Configuration.csproj", "{908E22C3-37E1-4D7D-81BA-69333D7E2A74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsychoShop.Infrastructure.EFCore", "PsychoShop.Infrastructure.EFCore\PsychoShop.Infrastructure.EFCore.csproj", "{06C9D30C-9998-423C-AB18-4E169F193DEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsychoShop.Infrastructure.EFCore", "PsychoShop.Infrastructure.EFCore\PsychoShop.Infrastructure.EFCore.csproj", "{06C9D30C-9998-423C-AB18-4E169F193DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsychoShop.Framework", "PsychoShop.Framework\PsychoShop.Framework.csproj", "{C2FE8625-62F2-4829-A4AC-1C7703528357}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsychoShop.Framework", "PsychoShop.Framework\PsychoShop.Framework.csproj", "{C2FE8625-62F2-4829-A4AC-1C7703528357}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsychoShop.Infrastructure.Configuration", "PsychoShop.Infrastructure.Configuration\PsychoShop.Infrastructure.Configuration.csproj", "{07120E29-A25A-4C67-9316-C3AA89653757}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,6 @@ Global
 		{C2D4A171-4385-4FC8-A485-853C1CA763FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2D4A171-4385-4FC8-A485-853C1CA763FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2D4A171-4385-4FC8-A485-853C1CA763FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{908E22C3-37E1-4D7D-81BA-69333D7E2A74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{908E22C3-37E1-4D7D-81BA-69333D7E2A74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{908E22C3-37E1-4D7D-81BA-69333D7E2A74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{908E22C3-37E1-4D7D-81BA-69333D7E2A74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{06C9D30C-9998-423C-AB18-4E169F193DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{06C9D30C-9998-423C-AB18-4E169F193DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06C9D30C-9998-423C-AB18-4E169F193DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,6 +55,10 @@ Global
 		{C2FE8625-62F2-4829-A4AC-1C7703528357}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2FE8625-62F2-4829-A4AC-1C7703528357}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2FE8625-62F2-4829-A4AC-1C7703528357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07120E29-A25A-4C67-9316-C3AA89653757}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07120E29-A25A-4C67-9316-C3AA89653757}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07120E29-A25A-4C67-9316-C3AA89653757}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07120E29-A25A-4C67-9316-C3AA89653757}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,8 +70,8 @@ Global
 		{1768291A-7C03-4E93-A414-23580283EA84} = {1616F072-4763-4010-B527-E7E08B5ECD05}
 		{C2D4A171-4385-4FC8-A485-853C1CA763FD} = {1616F072-4763-4010-B527-E7E08B5ECD05}
 		{08DC2FA5-FE17-45DE-B53D-90FCDDE97708} = {63136C4A-1C64-41E2-AB01-34F3ABFC3819}
-		{908E22C3-37E1-4D7D-81BA-69333D7E2A74} = {08DC2FA5-FE17-45DE-B53D-90FCDDE97708}
 		{06C9D30C-9998-423C-AB18-4E169F193DEE} = {08DC2FA5-FE17-45DE-B53D-90FCDDE97708}
+		{07120E29-A25A-4C67-9316-C3AA89653757} = {08DC2FA5-FE17-45DE-B53D-90FCDDE97708}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18E7DF41-DAAB-4C56-94D2-5EFD6ECB7E6A}

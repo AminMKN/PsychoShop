@@ -1,4 +1,4 @@
-﻿@model ProductCategoryModelSet
+﻿@model ProductCategoryAdminModel
 @{
     ViewData["Title"] = "گروه محصولات";
 }
@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <form class="form-inline" method="get" asp-area="Admin" asp-controller="ProductCategory" asp-action="Index">
+            <form method="get" class="form-inline">
                 <div class="custom-control custom-checkbox">
                     <input asp-for="SearchModel.IsRemoved" type="checkbox" class="custom-control-input">
                     <label asp-for="SearchModel.IsRemoved" class="custom-control-label">جستجو در حذف شده ها</label>

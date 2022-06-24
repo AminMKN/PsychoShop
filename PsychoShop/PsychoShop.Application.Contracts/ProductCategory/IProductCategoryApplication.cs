@@ -9,7 +9,7 @@ namespace PsychoShop.Application.Contracts.ProductCategory
         OperationResult Remove(int id);
         OperationResult Restore(int id);
         EditProductCategory GetDetails(int id);
-        Task<List<ProductCategoryViewModel>> GetProductCategories();
+        Task<List<ProductCategoryViewModel>> GetProductCategoriesList();
         Task<List<ProductCategoryViewModel>> Search(ProductCategorySearchModel searchModel);
     }
 }

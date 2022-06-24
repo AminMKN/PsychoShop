@@ -18,10 +18,13 @@ namespace ServiceHost.Areas.Admin.Controllers
         #region Index
 
         [HttpGet]
-        public async Task<IActionResult> Index(ProductCategoryModelSet command, ProductCategorySearchModel searchModel)
+        public async Task<IActionResult> Index(ProductCategorySearchModel searchModel)
         {
-            command.ProductCategories = await _productCategoryApplication.Search(searchModel);
-            return View(command);
+            var productCategory = new ProductCategoryAdminModel()
+            {
+                ProductCategories = await _productCategoryApplication.Search(searchModel)
+            };
+            return View(productCategory);
         }
 
         #endregion
@@ -31,28 +34,17 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new ProductCategoryModelSet());
+            return View(new ProductCategoryAdminModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ProductCategoryModelSet command)
+        public IActionResult Create(ProductCategoryAdminModel command)
         {
             if (ModelState.IsValid)
             {
                 var result = _productCategoryApplication.Create(command.CreateProductCategory);
-                if (result.IsSuccess)
-                {
-                    command.IsSuccess = true;
-                    command.Message = result.Message;
-                    return View(command);
-                }
-                else
-                {
-                    command.IsSuccess = false;
-                    command.Message = result.Message;
-                    return View(command);
-                }
+                command.Message = result.Message;
             }
 
             return View(command);
@@ -63,29 +55,23 @@ namespace ServiceHost.Areas.Admin.Controllers
         #region Edit
 
         [HttpGet]
-        public IActionResult Edit(int id, ProductCategoryModelSet command)
+        public IActionResult Edit(int id)
         {
-            command.EditProductCategory = _productCategoryApplication.GetDetails(id);
-            return View(command);
+            var productCategory = new ProductCategoryAdminModel()
+            {
+                EditProductCategory = _productCategoryApplication.GetDetails(id)
+            };
+            return View(productCategory);
         }
 
-        public IActionResult Edit(ProductCategoryModelSet command)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ProductCategoryAdminModel command)
         {
             if (ModelState.IsValid)
             {
                 var result = _productCategoryApplication.Edit(command.EditProductCategory);
-                if (result.IsSuccess)
-                {
-                    command.IsSuccess = true;
-                    command.Message = result.Message;
-                    return View(command);
-                }
-                else
-                {
-                    command.IsSuccess = false;
-                    command.Message = result.Message;
-                    return View(command);
-                }
+                command.Message = result.Message;
             }
 
             return View(command);
@@ -98,13 +84,13 @@ namespace ServiceHost.Areas.Admin.Controllers
         public IActionResult Remove(int id)
         {
             _productCategoryApplication.Remove(id);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Restore(int id)
         {
             _productCategoryApplication.Restore(id);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         #endregion

@@ -31,7 +31,7 @@ namespace PsychoShop.Application
             var operation = new OperationResult();
             var productCategory = _productCategoryRepository.Get(command.Id);
             if (productCategory == null)
-                return operation.Failed(ApplicationMessages.DuplicatedInfo);
+                return operation.Failed(ApplicationMessages.RequestedInfoNotFound);
 
             if (_productCategoryRepository.Exists(x => x.Name == command.Name && x.Id != command.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedInfo);
@@ -47,7 +47,7 @@ namespace PsychoShop.Application
             var operation = new OperationResult();
             var productCategory = _productCategoryRepository.Get(id);
             if (productCategory == null)
-                return operation.Failed(ApplicationMessages.DuplicatedInfo);
+                return operation.Failed(ApplicationMessages.RequestedInfoNotFound);
 
             productCategory.Remove();
             _productCategoryRepository.SaveChanges();
@@ -59,7 +59,7 @@ namespace PsychoShop.Application
             var operation = new OperationResult();
             var productCategory = _productCategoryRepository.Get(id);
             if (productCategory == null)
-                return operation.Failed(ApplicationMessages.DuplicatedInfo);
+                return operation.Failed(ApplicationMessages.RequestedInfoNotFound);
 
             productCategory.Restore();
             _productCategoryRepository.SaveChanges();
@@ -71,9 +71,9 @@ namespace PsychoShop.Application
             return _productCategoryRepository.GetDetails(id);
         }
 
-        public async Task<List<ProductCategoryViewModel>> GetProductCategories()
+        public async Task<List<ProductCategoryViewModel>> GetProductCategoriesList()
         {
-            return await _productCategoryRepository.GetProductCategories();
+            return await _productCategoryRepository.GetProductCategoriesList();
         }
 
         public async Task<List<ProductCategoryViewModel>> Search(ProductCategorySearchModel searchModel)
