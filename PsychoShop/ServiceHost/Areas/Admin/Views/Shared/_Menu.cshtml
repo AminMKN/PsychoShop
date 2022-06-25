@@ -1,0 +1,57 @@
+﻿<aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar>
+    <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle">
+        <i class="fe fe-x"><span class="sr-only"></span></i>
+    </a>
+    <nav class="vertnav navbar navbar-light">
+        <div class="w-100 mb-4 d-flex">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                <img src="~/AdminTheme/assets/images/favicon.png" alt="PsychoShop" title="PsychoShop" />
+            </a>
+        </div>
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item dropdown">
+                <a href="#dashboard" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+                    <i class="fe fe-home fe-16"></i>
+                    <span class="ml-3 item-text">داشبورد</span>
+                </a>
+                <ul class="collapse list-unstyled pl-4 w-100" id="dashboard">
+                    <li class="nav-item active">
+                        <a class="nav-link pl-3" asp-area="Admin" asp-controller="Home" asp-action="Index"><span class="ml-1 item-text">صفحه اصلی</span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <p class="text-muted nav-heading mt-4 mb-1">
+            <span>فروشگاه</span>
+        </p>
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item dropdown">
+                <a href="#shop" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+                    <i class="fe fe-shopping-cart"></i>
+                    <span class="ml-3 item-text">فروشگاه</span>
+                </a>
+                <ul class="collapse list-unstyled pl-4 w-100" id="shop">
+                    <li class="nav-item active">
+                        <a class="nav-link pl-3" asp-area="Admin" asp-controller="ProductCategory" asp-action="Index"><span class="ml-1 item-text">گروه محصولات</span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <p class="text-muted nav-heading mt-4 mb-1">
+            <span>امنیت</span>
+        </p>
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item dropdown">
+                <a href="#account" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+                    <i class="fe fe-lock"></i>
+                    <span class="ml-3 item-text">امنیت</span>
+                </a>
+                <ul class="collapse list-unstyled pl-4 w-100" id="account">
+                    <li class="nav-item active">
+                        <a class="nav-link pl-3" asp-area="Admin" asp-controller="Account" asp-action="Index"><span class="ml-1 item-text">کاربران</span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</aside>

@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PsychoShop.Application.Contracts\PsychoShop.Application.Contracts.csproj" />
     <ProjectReference Include="..\PsychoShop.Domain\PsychoShop.Domain.csproj" />
   </ItemGroup>

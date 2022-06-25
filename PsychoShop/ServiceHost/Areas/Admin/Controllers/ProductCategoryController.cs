@@ -24,6 +24,7 @@ namespace ServiceHost.Areas.Admin.Controllers
             {
                 ProductCategories = await _productCategoryApplication.Search(searchModel)
             };
+
             return View(productCategory);
         }
 
@@ -61,6 +62,7 @@ namespace ServiceHost.Areas.Admin.Controllers
             {
                 EditProductCategory = _productCategoryApplication.GetDetails(id)
             };
+
             return View(productCategory);
         }
 

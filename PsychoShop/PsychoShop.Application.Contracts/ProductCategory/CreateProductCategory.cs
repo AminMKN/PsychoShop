@@ -7,10 +7,13 @@ namespace PsychoShop.Application.Contracts.ProductCategory
     {
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string Name { get; set; }
+
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string Slug { get; set; }
+
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string Keywords { get; set; }
+
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string MetaDescription { get; set; }
     }

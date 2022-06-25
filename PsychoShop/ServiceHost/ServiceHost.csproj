@@ -17,4 +17,8 @@
     <ProjectReference Include="..\PsychoShop.Infrastructure.Configuration\PsychoShop.Infrastructure.Configuration.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Pictures\User\AminMKN\" />
+  </ItemGroup>
+
 </Project>
