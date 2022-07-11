@@ -1,0 +1,83 @@
+﻿@model UserAccountAdminModel
+@{
+    ViewData["Title"] = "حذف دسترسی";
+    if (Model.Message == ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message != null && Model.Message != ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <strong class="card-title">@ViewData["Title"]</strong>
+                </div>
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" asp-for="AddOrRemoveClaim.UserAccountId" value="@Model.AddOrRemoveClaim.UserAccountId" />
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @{
+                                    if (!Model.AddOrRemoveClaim.UserClaimDetails.Any())
+                                    {
+                                        <script type="text/javascript">
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'هیچ دسترسی یافت نشد',
+                                                text: 'فروشگاه اینترنتی الکترون شاپ',
+                                                confirmButtonText: 'باشه',
+                                            })
+                                        </script>
+                                    }
+                                    else
+                                    {
+                                        for (var i = 0; i < Model.AddOrRemoveClaim.UserClaimDetails.Count; i++)
+                                        {
+                                            <div class="form-group">
+                                                <input type="hidden" asp-for="AddOrRemoveClaim.UserClaimDetails[i].ClaimName" />
+                                                <input asp-for="AddOrRemoveClaim.UserClaimDetails[i].IsSelected" />
+                                                <label>@Model.AddOrRemoveClaim.UserClaimDetails[i].ClaimName</label>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">ذخیره</button>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="UserAccount" asp-action="Index">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

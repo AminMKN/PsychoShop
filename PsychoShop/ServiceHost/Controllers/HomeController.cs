@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PsychoShop.Application.Contracts.UserAccount;
 using ServiceHost.Models;
 using System.Diagnostics;
 

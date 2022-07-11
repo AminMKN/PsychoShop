@@ -1,0 +1,91 @@
+﻿@model UserAccountModel
+@{
+    ViewData["Title"] = "ثبت نام در سایکو شاپ";
+    Layout = "_UserAccountLayout";
+    if (Model.Message == ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message != null && Model.Message != ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div id="main">
+    <div class="col-lg-4 col-md-6 col-xs-12 mx-auto">
+        <div class="account-box">
+            <a class="logo-account">
+                <img class="mt-3" src="~/Theme/assets/images/shoplogo.jpg" alt="ElectronShop" title="ElectronShop">
+            </a>
+            <span class="account-head-line text-center">@ViewData["Title"]</span>
+            <div class="content-account">
+                <div class="massege-light">اگر قبلا ثبت نام کرده اید میتوانید وارد شوید</div>
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div>
+                        <label asp-for="SignUpUserAccount.FullName" class="pull-right">نام و نام خانوادگی</label>
+                        <input asp-for="SignUpUserAccount.FullName" type="text" class="form-control" placeholder="نام و نام خانوادگی" />
+                        <span asp-validation-for="SignUpUserAccount.FullName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="SignUpUserAccount.UserName" class="pull-right">نام کاربری</label>
+                        <input asp-for="SignUpUserAccount.UserName" type="text" class="form-control" placeholder="نام کاربری">
+                        <span asp-validation-for="SignUpUserAccount.UserName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="SignUpUserAccount.Email" class="pull-right">ایمیل</label>
+                        <input asp-for="SignUpUserAccount.Email" type="email" class="form-control" placeholder="ایمیل">
+                        <span asp-validation-for="SignUpUserAccount.Email" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="SignUpUserAccount.PhoneNumber" class="pull-right">شماره موبایل</label>
+                        <input asp-for="SignUpUserAccount.PhoneNumber" type="tel" class="form-control" placeholder="شماره موبایل" />
+                        <span asp-validation-for="SignUpUserAccount.PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="SignUpUserAccount.Password" class="pull-right">کلمه عبور</label>
+                        <input asp-for="SignUpUserAccount.Password" type="password" class="form-control" placeholder="کلمه عبور">
+                        <span asp-validation-for="SignUpUserAccount.Password" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="SignUpUserAccount.RePassword" class="pull-right">تکرار کلمه عبور</label>
+                        <input asp-for="SignUpUserAccount.RePassword" type="password" class="form-control" placeholder="تکرار کلمه عبور">
+                        <span asp-validation-for="SignUpUserAccount.RePassword" class="text-danger"></span>
+                    </div>
+                    <div class="parent-btn">
+                        <button type="submit" class="dk-btn dk-btn-info">
+                            ثبت نام در سایکو شاپ
+                            <i class="mdi mdi-account-plus-outline sign-in"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="account-footer">
+                <span>قبلا در سایکو شاپ ثبت‌ نام کرده‌اید؟</span>
+                <a asp-controller="UserAccount" asp-action="SignIn" class="btn-link-register">وارد شویــد</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

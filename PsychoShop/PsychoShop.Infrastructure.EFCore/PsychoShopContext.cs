@@ -1,13 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PsychoShop.Domain.AccountAgg;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PsychoShop.Domain.ProductCategoryAgg;
+using PsychoShop.Domain.UserAccountAgg;
 using PsychoShop.Infrastructure.EFCore.Mapping;
 
 namespace PsychoShop.Infrastructure.EFCore
 {
-    public class PsychoShopContext : DbContext
+    public class PsychoShopContext : IdentityDbContext<UserAccount>
     {
-        public DbSet<Account> Accounts { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
 
         public PsychoShopContext(DbContextOptions<PsychoShopContext> context) : base(context)

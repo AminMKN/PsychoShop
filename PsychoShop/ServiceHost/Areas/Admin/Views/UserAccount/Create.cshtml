@@ -1,0 +1,100 @@
+﻿@model UserAccountAdminModel
+@{
+    ViewData["Title"] = "ایجاد کاربر";
+    if (Model.Message == ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message != null && Model.Message != ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <strong class="card-title">@ViewData["Title"]</strong>
+                </div>
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="SignUpUserAccount.FullName">نام و نام خانوادگی</label>
+                                    <input asp-for="SignUpUserAccount.FullName" type="text" class="form-control" placeholder="نام و نام خانوادگی" />
+                                    <span asp-validation-for="SignUpUserAccount.FullName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="SignUpUserAccount.UserName">نام کاربری</label>
+                                    <input asp-for="SignUpUserAccount.UserName" type="text" class="form-control" placeholder="نام کاربری" />
+                                    <span asp-validation-for="SignUpUserAccount.UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="SignUpUserAccount.Email">ایمیل</label>
+                                    <input asp-for="SignUpUserAccount.Email" type="email" class="form-control" placeholder="ایمیل" />
+                                    <span asp-validation-for="SignUpUserAccount.Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="SignUpUserAccount.PhoneNumber">شماره موبایل</label>
+                                    <input asp-for="SignUpUserAccount.PhoneNumber" type="tel" class="form-control" placeholder="شماره موبایل" />
+                                    <span asp-validation-for="SignUpUserAccount.PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="SignUpUserAccount.Password">کلمه عبور</label>
+                                    <input asp-for="SignUpUserAccount.Password" type="password" class="form-control" placeholder="کلمه عبور" />
+                                    <span asp-validation-for="SignUpUserAccount.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="SignUpUserAccount.RePassword">تکرار کلمه عبور</label>
+                                    <input asp-for="SignUpUserAccount.RePassword" type="password" class="form-control" placeholder="تکرار کلمه عبور" />
+                                    <span asp-validation-for="SignUpUserAccount.RePassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">ایجاد</button>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="UserAccount" asp-action="Index">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

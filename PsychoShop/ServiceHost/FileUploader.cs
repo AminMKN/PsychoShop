@@ -14,9 +14,7 @@ namespace ServiceHost
         public string Upload(IFormFile file, string path)
         {
             if (file == null || path == null)
-            {
                 return string.Empty;
-            }
 
             var directoryPath = $"{_webHostEnvironment.WebRootPath}/Pictures/{path}";
             if (!Directory.Exists(directoryPath))

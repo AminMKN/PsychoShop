@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PsychoShop.Application.Contracts.ProductCategory;
 using PsychoShop.Framework.Application;
 using ServiceHost.Areas.Admin.Models;
@@ -6,6 +7,7 @@ using ServiceHost.Areas.Admin.Models;
 namespace ServiceHost.Areas.Admin.Controllers
 {
     [Area(AreaName.Admin)]
+    [Authorize(Policy = "ProductCategoryPolicy")]
     public class ProductCategoryController : Controller
     {
         private readonly IProductCategoryApplication _productCategoryApplication;
@@ -20,12 +22,12 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(ProductCategorySearchModel searchModel)
         {
-            var productCategory = new ProductCategoryAdminModel()
+            var command = new ProductCategoryAdminModel()
             {
                 ProductCategories = await _productCategoryApplication.Search(searchModel)
             };
 
-            return View(productCategory);
+            return View(command);
         }
 
         #endregion
@@ -58,12 +60,12 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var productCategory = new ProductCategoryAdminModel()
+            var command = new ProductCategoryAdminModel()
             {
                 EditProductCategory = _productCategoryApplication.GetDetails(id)
             };
 
-            return View(productCategory);
+            return View(command);
         }
 
         [HttpPost]

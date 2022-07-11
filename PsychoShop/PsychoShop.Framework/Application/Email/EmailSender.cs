@@ -11,7 +11,7 @@ namespace PsychoShop.Framework.Application.Email
             var credentials = new NetworkCredential()
             {
                 UserName = "aspemail007", // without @gmail.com
-                Password = "AminAsp007"
+                Password = "engfkgwsjqjlriqc"
             };
 
             client.Credentials = credentials;
