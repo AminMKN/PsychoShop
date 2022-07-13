@@ -26,12 +26,12 @@ namespace ServiceHost.Controllers
             if (_signInManager.IsSignedIn(User))
                 return RedirectToAction("Index", "Home");
 
-            return View(new UserAccountModel());
+            return View(new UserAccountCommand());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignUp(UserAccountModel command)
+        public async Task<IActionResult> SignUp(UserAccountCommand command)
         {
             if (ModelState.IsValid)
             {
@@ -58,12 +58,12 @@ namespace ServiceHost.Controllers
             if (_signInManager.IsSignedIn(User))
                 return RedirectToAction("Index", "Home");
 
-            return View(new UserAccountModel());
+            return View(new UserAccountCommand());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignIn(UserAccountModel command)
+        public async Task<IActionResult> SignIn(UserAccountCommand command)
         {
             if (ModelState.IsValid)
             {
@@ -94,12 +94,12 @@ namespace ServiceHost.Controllers
         [HttpGet]
         public IActionResult ForgotPassword()
         {
-            return View(new UserAccountModel());
+            return View(new UserAccountCommand());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ForgotPassword(UserAccountModel command)
+        public async Task<IActionResult> ForgotPassword(UserAccountCommand command)
         {
             if (ModelState.IsValid)
             {
@@ -117,7 +117,7 @@ namespace ServiceHost.Controllers
         [HttpGet]
         public IActionResult ResetPassword(string email, string token)
         {
-            var command = new UserAccountModel()
+            var command = new UserAccountCommand()
             {
                 ResetPassword = new ResetPassword()
                 {
@@ -131,7 +131,7 @@ namespace ServiceHost.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(UserAccountModel command)
+        public async Task<IActionResult> ResetPassword(UserAccountCommand command)
         {
             if (ModelState.IsValid)
             {

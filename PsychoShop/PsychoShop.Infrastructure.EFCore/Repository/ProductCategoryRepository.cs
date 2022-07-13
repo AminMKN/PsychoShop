@@ -15,13 +15,6 @@ namespace PsychoShop.Infrastructure.EFCore.Repository
             _context = context;
         }
 
-        public string GetProductCategorySlug(int id)
-        {
-            return _context.ProductCategories
-                 .Select(x => new { x.Id, x.Slug })
-                 .AsNoTracking().FirstOrDefault(x => x.Id == id)?.Slug;
-        }
-
         public EditProductCategory GetDetails(int id)
         {
             return _context.ProductCategories.Select(x => new EditProductCategory()
@@ -31,7 +24,7 @@ namespace PsychoShop.Infrastructure.EFCore.Repository
                 Slug = x.Slug,
                 Keywords = x.Keywords,
                 MetaDescription = x.MetaDescription
-            }).FirstOrDefault(x => x.Id == id);
+            }).AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<List<ProductCategoryViewModel>> GetProductCategoriesList()

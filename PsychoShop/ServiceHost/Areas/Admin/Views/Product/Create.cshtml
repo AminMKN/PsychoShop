@@ -1,0 +1,183 @@
+﻿@model ProductAdminCommand
+@{
+    ViewData["Title"] = "ایجاد محصول";
+    if (Model.Message == ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message == ApplicationMessages.DuplicatedInfo)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <strong class="card-title">@ViewData["Title"]</strong>
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.Name">نام</label>
+                                    <input asp-for="CreateProduct.Name" type="text" class="form-control" placeholder="نام" onchange="makeSlug('CreateProduct_Name', 'CreateProduct_Slug')" />
+                                    <span asp-validation-for="CreateProduct.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.Slug">اسلاگ</label>
+                                    <input asp-for="CreateProduct.Slug" type="text" class="form-control" placeholder="اسلاگ" />
+                                    <span asp-validation-for="CreateProduct.Slug" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.Code">کد</label>
+                                    <input asp-for="CreateProduct.Code" type="text" class="form-control" placeholder="کد" />
+                                    <span asp-validation-for="CreateProduct.Code" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.Picture">عکس</label>
+                                    <input asp-for="CreateProduct.Picture" type="file" class="form-control" placeholder="عکس" accept="image/*" multiple="multiple" />
+                                    <span asp-validation-for="CreateProduct.Picture" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.PictureAlt">متن جایگزین عکس</label>
+                                    <input asp-for="CreateProduct.PictureAlt" type="text" class="form-control" placeholder="متن جایگزین عکس" />
+                                    <span asp-validation-for="CreateProduct.PictureAlt" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.PictureTitle">عنوان عکس</label>
+                                    <input asp-for="CreateProduct.PictureTitle" type="text" class="form-control" placeholder="عنوان عکس" />
+                                    <span asp-validation-for="CreateProduct.PictureTitle" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.ProductCategoryId">گروه محصول</label>
+                                    <select class="form-control" asp-for="CreateProduct.ProductCategoryId" asp-items="Model.ProductCategories">
+                                        <option value="0">انتخاب کنید...</option>
+                                    </select>
+                                    <span asp-validation-for="CreateProduct.ProductCategoryId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.ProductSubCategoryId">زیر گروه محصول</label>
+                                    <select class="form-control" asp-for="CreateProduct.ProductSubCategoryId">
+                                        <option value="0">انتخاب کنید...</option>
+                                    </select>
+                                    <span asp-validation-for="CreateProduct.ProductSubCategoryId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.Keywords">کلمات کلیدی</label>
+                                    <input asp-for="CreateProduct.Keywords" type="text" class="form-control" placeholder="کلمات کلیدی" />
+                                    <span asp-validation-for="CreateProduct.Keywords" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.MetaDescription">توضیحات متا</label>
+                                    <textarea asp-for="CreateProduct.MetaDescription" class="form-control" placeholder="توضیحات متا"></textarea>
+                                    <span asp-validation-for="CreateProduct.MetaDescription" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.Information">مشخصات</label>
+                                    <textarea asp-for="CreateProduct.Information" class="form-control" placeholder="مشخصات"></textarea>
+                                    <span asp-validation-for="CreateProduct.Information" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.Property">ویژگی ها</label>
+                                    <textarea asp-for="CreateProduct.Property" class="form-control" placeholder="ویژگی ها"></textarea>
+                                    <span asp-validation-for="CreateProduct.Property" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="CreateProduct.Description">توضیحات کامل</label>
+                                    <textarea asp-for="CreateProduct.Description" class="form-control" placeholder="توضیحات کامل"></textarea>
+                                    <span asp-validation-for="CreateProduct.Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">ایجاد</button>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="Product" asp-action="Index">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('CreateProduct_Description');
+        CKEDITOR.replace('CreateProduct_Information');
+        CKEDITOR.replace('CreateProduct_Property');
+    </script>
+    <script>
+        $(function() {
+            $("select#CreateProduct_ProductCategoryId").change(function() {
+                var id = $(this).val();
+
+                $("select#CreateProduct_ProductSubCategoryId").empty();
+
+                $.getJSON(`/Admin/ProductSubCategory/ProductSubCategoriesJson?id=${id}`, function(data) {
+                    $.each(data, function(i, item) {
+                        $("select#CreateProduct_ProductSubCategoryId").append(`<option value="${item.id}">${item.name}</option>`);
+                    });
+                });
+            });
+        });
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

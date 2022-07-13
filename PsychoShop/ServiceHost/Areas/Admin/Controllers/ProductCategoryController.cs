@@ -22,7 +22,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(ProductCategorySearchModel searchModel)
         {
-            var command = new ProductCategoryAdminModel()
+            var command = new ProductCategoryAdminCommand()
             {
                 ProductCategories = await _productCategoryApplication.Search(searchModel)
             };
@@ -37,12 +37,12 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new ProductCategoryAdminModel());
+            return View(new ProductCategoryAdminCommand());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ProductCategoryAdminModel command)
+        public IActionResult Create(ProductCategoryAdminCommand command)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +60,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var command = new ProductCategoryAdminModel()
+            var command = new ProductCategoryAdminCommand()
             {
                 EditProductCategory = _productCategoryApplication.GetDetails(id)
             };
@@ -70,7 +70,7 @@ namespace ServiceHost.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(ProductCategoryAdminModel command)
+        public IActionResult Edit(ProductCategoryAdminCommand command)
         {
             if (ModelState.IsValid)
             {

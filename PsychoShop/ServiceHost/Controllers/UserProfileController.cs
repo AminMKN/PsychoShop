@@ -24,7 +24,7 @@ namespace ServiceHost.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var command = new UserProfileModel()
+            var command = new UserProfileCommand()
             {
                 UserAccount = await _userAccountApplication.GetCurrentUserAccountInfo()
             };
@@ -34,7 +34,7 @@ namespace ServiceHost.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(UserProfileModel command)
+        public async Task<IActionResult> Index(UserProfileCommand command)
         {
             if (ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace ServiceHost.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit()
         {
-            var command = new UserProfileModel()
+            var command = new UserProfileCommand()
             {
                 EditUserAccount = await _userAccountApplication.GetDetails(_authHelper.GetCurrentUserAccountId())
             };
@@ -63,7 +63,7 @@ namespace ServiceHost.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(UserProfileModel command)
+        public async Task<IActionResult> Edit(UserProfileCommand command)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace ServiceHost.Controllers
         public async Task<IActionResult> ConfirmEmail(string userName, string token)
         {
             var result = await _userAccountApplication.ConfirmEmail(userName, token);
-            var command = new UserProfileModel()
+            var command = new UserProfileCommand()
             {
                 Message = result.Message,
                 UserAccount = await _userAccountApplication.GetCurrentUserAccountInfo()

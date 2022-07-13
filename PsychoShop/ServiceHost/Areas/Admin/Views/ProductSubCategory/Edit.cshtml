@@ -1,0 +1,96 @@
+﻿@model ProductSubCategoryAdminCommand
+@{
+    ViewData["Title"] = "ویرایش زیر گروه محصول";
+    if (Model.Message == ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message == ApplicationMessages.DuplicatedInfo)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <strong class="card-title">@ViewData["Title"]</strong>
+                </div>
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" asp-for="EditProductSubCategory.Id" value="@Model.EditProductSubCategory.Id" />
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProductSubCategory.Name">نام</label>
+                                    <input asp-for="EditProductSubCategory.Name" type="text" class="form-control" placeholder="نام" onchange="makeSlug('EditProductSubCategory_Name', 'EditProductSubCategory_Slug')" />
+                                    <span asp-validation-for="EditProductSubCategory.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProductSubCategory.Slug">اسلاگ</label>
+                                    <input asp-for="EditProductSubCategory.Slug" type="text" class="form-control" placeholder="اسلاگ" />
+                                    <span asp-validation-for="EditProductSubCategory.Slug" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProductSubCategory.Keywords">کلمات کلیدی</label>
+                                    <input asp-for="EditProductSubCategory.Keywords" type="text" class="form-control" placeholder="کلمات کلیدی" />
+                                    <span asp-validation-for="EditProductSubCategory.Keywords" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="EditProductSubCategory.ProductCategoryId">گروه محصول</label>
+                                    <select class="form-control" asp-for="EditProductSubCategory.ProductCategoryId" asp-items="Model.ProductCategories">
+                                        <option value="0">انتخاب کنید...</option>
+                                    </select>
+                                    <span asp-validation-for="EditProductSubCategory.ProductCategoryId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="EditProductSubCategory.MetaDescription">توضیحات متا</label>
+                                    <textarea asp-for="EditProductSubCategory.MetaDescription" class="form-control" placeholder="توضیحات متا"></textarea>
+                                    <span asp-validation-for="EditProductSubCategory.MetaDescription" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-info">ویرایش</button>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="ProductSubCategory" asp-action="Index">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

@@ -25,7 +25,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(UserAccountSearchModel searchModel)
         {
-            var command = new UserAccountAdminModel()
+            var command = new UserAccountAdminCommand()
             {
                 UserAccounts = await _userAccountApplication.Search(searchModel)
             };
@@ -40,12 +40,12 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new UserAccountAdminModel());
+            return View(new UserAccountAdminCommand());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(UserAccountAdminModel command)
+        public async Task<IActionResult> Create(UserAccountAdminCommand command)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            var command = new UserAccountAdminModel()
+            var command = new UserAccountAdminCommand()
             {
                 EditUserAccount = await _userAccountApplication.GetDetails(id)
             };
@@ -79,7 +79,7 @@ namespace ServiceHost.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(UserAccountAdminModel command)
+        public async Task<IActionResult> Edit(UserAccountAdminCommand command)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +103,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> AddUserClaim(string id)
         {
-            var command = new UserAccountAdminModel()
+            var command = new UserAccountAdminCommand()
             {
                 AddOrRemoveClaim = await _userClaimApplication.GetDetailsForAdd(id)
             };
@@ -113,7 +113,7 @@ namespace ServiceHost.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddUserClaim(UserAccountAdminModel command)
+        public async Task<IActionResult> AddUserClaim(UserAccountAdminCommand command)
         {
             if (ModelState.IsValid)
             {
@@ -137,7 +137,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> RemoveUserClaim(string id)
         {
-            var command = new UserAccountAdminModel()
+            var command = new UserAccountAdminCommand()
             {
                 AddOrRemoveClaim = await _userClaimApplication.GetDetailsForRemove(id)
             };
@@ -147,7 +147,7 @@ namespace ServiceHost.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RemoveUserClaim(UserAccountAdminModel command)
+        public async Task<IActionResult> RemoveUserClaim(UserAccountAdminCommand command)
         {
             if (ModelState.IsValid)
             {

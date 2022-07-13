@@ -1,4 +1,6 @@
-﻿using PsychoShop.Framework.Domain;
+﻿using PsychoShop.Domain.ProductAgg;
+using PsychoShop.Domain.ProductSubCategoryAgg;
+using PsychoShop.Framework.Domain;
 
 namespace PsychoShop.Domain.ProductCategoryAgg
 {
@@ -9,6 +11,8 @@ namespace PsychoShop.Domain.ProductCategoryAgg
         public string Keywords { get; set; }
         public string MetaDescription { get; set; }
         public bool IsRemoved { get; set; }
+        public List<Product> Products { get; set; }
+        public List<ProductSubCategory> ProductSubCategories { get; set; }
 
         public ProductCategory(string name, string slug, string keywords, string metaDescription)
         {
@@ -17,6 +21,8 @@ namespace PsychoShop.Domain.ProductCategoryAgg
             Keywords = keywords;
             MetaDescription = metaDescription;
             IsRemoved = false;
+            Products = new List<Product>();
+            ProductSubCategories = new List<ProductSubCategory>();
         }
 
         public void Edit(string name, string slug, string keywords, string metaDescription)

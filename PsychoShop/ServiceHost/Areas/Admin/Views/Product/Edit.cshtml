@@ -1,0 +1,184 @@
+﻿@model ProductAdminCommand
+@{
+    ViewData["Title"] = "ویرایش محصول";
+    if (Model.Message == ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message == ApplicationMessages.DuplicatedInfo)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <strong class="card-title">@ViewData["Title"]</strong>
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" asp-for="EditProduct.Id" value="@Model.EditProduct.Id" />
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.Name">نام</label>
+                                    <input asp-for="EditProduct.Name" type="text" class="form-control" placeholder="نام" onchange="makeSlug('EditProduct_Name', 'EditProduct_Slug')" />
+                                    <span asp-validation-for="EditProduct.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.Slug">اسلاگ</label>
+                                    <input asp-for="EditProduct.Slug" type="text" class="form-control" placeholder="اسلاگ" />
+                                    <span asp-validation-for="EditProduct.Slug" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.Code">کد</label>
+                                    <input asp-for="EditProduct.Code" type="text" class="form-control" placeholder="کد" />
+                                    <span asp-validation-for="EditProduct.Code" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.Picture">عکس</label>
+                                    <input asp-for="EditProduct.Picture" type="file" class="form-control" placeholder="عکس" accept="image/*" multiple="multiple" />
+                                    <span asp-validation-for="EditProduct.Picture" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.PictureAlt">متن جایگزین عکس</label>
+                                    <input asp-for="EditProduct.PictureAlt" type="text" class="form-control" placeholder="متن جایگزین عکس" />
+                                    <span asp-validation-for="EditProduct.PictureAlt" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.PictureTitle">عنوان عکس</label>
+                                    <input asp-for="EditProduct.PictureTitle" type="text" class="form-control" placeholder="عنوان عکس" />
+                                    <span asp-validation-for="EditProduct.PictureTitle" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.ProductCategoryId">گروه محصول</label>
+                                    <select class="form-control" asp-for="EditProduct.ProductCategoryId" asp-items="Model.ProductCategories">
+                                        <option value="0">انتخاب کنید...</option>
+                                    </select>
+                                    <span asp-validation-for="EditProduct.ProductCategoryId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.ProductSubCategoryId">زیر گروه محصول</label>
+                                    <select class="form-control" asp-for="EditProduct.ProductSubCategoryId">
+                                        <option value="0">انتخاب کنید...</option>
+                                    </select>
+                                    <span asp-validation-for="EditProduct.ProductSubCategoryId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.Keywords">کلمات کلیدی</label>
+                                    <input asp-for="EditProduct.Keywords" type="text" class="form-control" placeholder="کلمات کلیدی" />
+                                    <span asp-validation-for="EditProduct.Keywords" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.MetaDescription">توضیحات متا</label>
+                                    <textarea asp-for="EditProduct.MetaDescription" class="form-control" placeholder="توضیحات متا"></textarea>
+                                    <span asp-validation-for="EditProduct.MetaDescription" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.Information">مشخصات</label>
+                                    <textarea asp-for="EditProduct.Information" class="form-control" placeholder="مشخصات"></textarea>
+                                    <span asp-validation-for="EditProduct.Information" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.Property">ویژگی ها</label>
+                                    <textarea asp-for="EditProduct.Property" class="form-control" placeholder="ویژگی ها"></textarea>
+                                    <span asp-validation-for="EditProduct.Property" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="EditProduct.Description">توضیحات کامل</label>
+                                    <textarea asp-for="EditProduct.Description" class="form-control" placeholder="توضیحات کامل"></textarea>
+                                    <span asp-validation-for="EditProduct.Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-info">ویرایش</button>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="Product" asp-action="Index">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('EditProduct_Description');
+        CKEDITOR.replace('EditProduct_Information');
+        CKEDITOR.replace('EditProduct_Property');
+    </script>
+    <script>
+        $(function() {
+            $("select#EditProduct_ProductCategoryId").change(function() {
+                var id = $(this).val();
+
+                $("select#EditProduct_ProductSubCategoryId").empty();
+
+                $.getJSON(`/Admin/ProductSubCategory/ProductSubCategoriesJson?id=${id}`, function(data) {
+                    $.each(data, function(i, item) {
+                        $("select#EditProduct_ProductSubCategoryId").append(`<option value="${item.id}">${item.name}</option>`);
+                    });
+                });
+            });
+        });
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

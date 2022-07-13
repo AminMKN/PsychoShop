@@ -1,15 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using PsychoShop.Application;
-using PsychoShop.Application.Contracts.ProductCategory;
-using PsychoShop.Application.Contracts.UserAccount;
-using PsychoShop.Application.Contracts.UserClaim;
-using PsychoShop.Domain.ProductCategoryAgg;
-using PsychoShop.Domain.UserAccountAgg;
+﻿using PsychoShop.Application;
 using PsychoShop.Domain.UserClaim;
+using PsychoShop.Domain.ProductAgg;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using PsychoShop.Domain.UserAccountAgg;
 using PsychoShop.Framework.Application;
 using PsychoShop.Infrastructure.EFCore;
+using PsychoShop.Domain.ProductCategoryAgg;
+using PsychoShop.Domain.ProductSubCategoryAgg;
+using Microsoft.Extensions.DependencyInjection;
+using PsychoShop.Application.Contracts.Product;
+using PsychoShop.Application.Contracts.UserClaim;
+using PsychoShop.Application.Contracts.UserAccount;
+using PsychoShop.Application.Contracts.ProductCategory;
+using PsychoShop.Application.Contracts.ProductSubCategory;
+
 using PsychoShop.Infrastructure.EFCore.Repository;
 
 namespace PsychoShop.Infrastructure.Configuration
@@ -46,8 +51,14 @@ namespace PsychoShop.Infrastructure.Configuration
             services.AddTransient<IUserClaimRepository, UserClaimRepository>();
             services.AddTransient<IUserClaimApplication, UserClaimApplication>();
 
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductApplication, ProductApplication>();
+
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IProductCategoryApplication, ProductCategoryApplication>();
+
+            services.AddTransient<IProductSubCategoryRepository, ProductSubCategoryRepository>();
+            services.AddTransient<IProductSubCategoryApplication, ProductSubCategoryApplication>();
 
             services.AddDbContext<PsychoShopContext>(x => x.UseSqlServer(connectionString));
         }
