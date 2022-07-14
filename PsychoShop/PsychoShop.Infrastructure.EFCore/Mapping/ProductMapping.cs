@@ -31,6 +31,11 @@ namespace PsychoShop.Infrastructure.EFCore.Mapping
                 .HasOne(x => x.ProductSubCategory)
                 .WithMany(x => x.Products)
                 .HasForeignKey(x => x.ProductSubCategoryId);
+
+            builder
+                .HasMany(x => x.ProductPictures)
+                .WithOne(x => x.Product)
+                .HasForeignKey(x => x.ProductId);
         }
     }
 }

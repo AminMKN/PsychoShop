@@ -1,0 +1,89 @@
+﻿@model ProductPictureAdminCommand
+@{
+    ViewData["Title"] = "ایجاد عکس محصول";
+    if (Model.Message == ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message == ApplicationMessages.DuplicatedInfo)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <strong class="card-title">@ViewData["Title"]</strong>
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CreateProductPicture.Picture">عکس</label>
+                                    <input asp-for="CreateProductPicture.Picture" type="file" class="form-control" placeholder="عکس" accept="image/*" />
+                                    <span asp-validation-for="CreateProductPicture.Picture" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CreateProductPicture.PictureAlt">متن جایگزین عکس</label>
+                                    <input asp-for="CreateProductPicture.PictureAlt" type="text" class="form-control" placeholder="متن جایگزین عکس" />
+                                    <span asp-validation-for="CreateProductPicture.PictureAlt" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CreateProductPicture.PictureTitle">عنوان عکس</label>
+                                    <input asp-for="CreateProductPicture.PictureTitle" type="text" class="form-control" placeholder="عنوان عکس" />
+                                    <span asp-validation-for="CreateProductPicture.PictureTitle" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CreateProductPicture.ProductId">محصول</label>
+                                    <select class="form-control" asp-for="CreateProductPicture.ProductId"
+                                            asp-items="Model.Products">
+                                        <option value="0">انتخاب کنید...</option>
+                                    </select>
+                                    <span asp-validation-for="CreateProductPicture.ProductId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">ایجاد</button>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="ProductPicture" asp-action="Index">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
