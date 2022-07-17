@@ -10,6 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\AdminTheme\datepicker\js\persian-date.min.js" />
+    <None Include="wwwroot\AdminTheme\datepicker\js\persian-datepicker.min.js" />
     <None Include="wwwroot\lib\ckeditor\adapters\jquery.js" />
     <None Include="wwwroot\lib\ckeditor\build-config.js" />
     <None Include="wwwroot\lib\ckeditor\CHANGES.md" />

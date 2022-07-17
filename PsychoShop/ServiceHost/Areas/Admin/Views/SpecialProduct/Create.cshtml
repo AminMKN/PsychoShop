@@ -1,0 +1,107 @@
+﻿@model SpecialProductAdminCommand
+@{
+    ViewData["Title"] = "ایجاد محصول ویژه";
+    if (Model.Message == ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message == ApplicationMessages.DuplicatedInfo)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <strong class="card-title">@ViewData["Title"]</strong>
+                </div>
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CreateSpecialProduct.ProductId">محصول</label>
+                                    <select class="form-control" asp-for="CreateSpecialProduct.ProductId" asp-items="Model.Products">
+                                        <option value="0">انتخاب کنید...</option>
+                                    </select>
+                                    <span asp-validation-for="CreateSpecialProduct.ProductId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CreateSpecialProduct.Type">نوع</label>
+                                    <select class="form-control" asp-for="CreateSpecialProduct.Type">
+                                        <option value="0">انتخاب کنید...</option>
+                                        <option value="1">پیشنهاد شگفت انگیز</option>
+                                        <option value="2">شگفت انگیز سوپرمارکتی</option>
+                                        <option value="3">پیشنهاد لحظه ای</option>
+                                    </select>
+                                    <span asp-validation-for="CreateSpecialProduct.Type" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CreateSpecialProduct.StartDate">تاریخ شروع</label>
+                                    <input asp-for="CreateSpecialProduct.StartDate" type="text" class="form-control persianDateInput" placeholder="تاریخ شروع" />
+                                    <span asp-validation-for="CreateSpecialProduct.StartDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CreateSpecialProduct.EndDate">تاریخ پایان</label>
+                                    <input asp-for="CreateSpecialProduct.EndDate" type="text" class="form-control persianDateInput" placeholder="تاریخ پایان" />
+                                    <span asp-validation-for="CreateSpecialProduct.EndDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">ایجاد</button>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="SpecialProduct" asp-action="Index">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Css
+    {
+    <link href="~/AdminTheme/datepicker/css/persian-datepicker.min.css" rel="stylesheet" />
+}
+
+    @section Scripts
+    {
+    <script src="~/AdminTheme/datepicker/js/persian-date.min.js"></script>
+    <script src="~/AdminTheme/datepicker/js/persian-datepicker.min.js"></script>
+    <script>
+        $('.persianDateInput').persianDatepicker({
+            format: 'YYYY/MM/DD',
+            autoClose: true,
+            initialValueType: "persian"
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

@@ -18,6 +18,8 @@ using PsychoShop.Application.Contracts.ProductSubCategory;
 using PsychoShop.Infrastructure.EFCore.Repository;
 using PsychoShop.Domain.ProductPictureAgg;
 using PsychoShop.Application.Contracts.ProductPicture;
+using PsychoShop.Domain.SpecialProductAgg;
+using PsychoShop.Application.Contracts.SpecialProduct;
 
 namespace PsychoShop.Infrastructure.Configuration
 {
@@ -55,6 +57,9 @@ namespace PsychoShop.Infrastructure.Configuration
 
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductApplication, ProductApplication>();
+
+            services.AddTransient<ISpecialProductRepository, SpecialProductRepository>();
+            services.AddTransient<ISpecialProductApplication, SpecialProductApplication>();
 
             services.AddTransient<IProductPictureRepository, ProductPictureRepository>();
             services.AddTransient<IProductPictureApplication, ProductPictureApplication>();

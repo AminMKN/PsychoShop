@@ -1,0 +1,83 @@
+﻿@model SpecialProductAdminCommand
+@{
+    ViewData["Title"] = "محصولات ویژه";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <form method="get" class="form-inline">
+                <select class="form-control mr-1" asp-for="SearchModel.Type">
+                    <option value="0">نوع...</option>
+                    <option value="1">پیشنهاد شگفت انگیز</option>
+                    <option value="2">شگفت انگیز سوپرمارکتی</option>
+                    <option value="3">پیشنهاد لحظه ای</option>
+                </select>
+                <select class="form-control mr-1" asp-for="SearchModel.ProductId" asp-items="Model.Products">
+                    <option value="0">محصول...</option>
+                </select>
+                <button type="submit" class="btn btn-success mr-1">جستجو</button>
+                <a asp-area="Admin" asp-controller="SpecialProduct" asp-action="Index" class="btn btn-primary mr-1">مشاهده همه</a>
+                <a asp-area="Admin" asp-controller="SpecialProduct" asp-action="Create" class="btn btn-info mr-1">ایجاد محصول ویژه</a>
+            </form>
+            <hr />
+            <h2 class="mb-2 page-title">@ViewData["Title"]</h2>
+            <div class="row my-4">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <table class="table datatables" id="dataTable-1">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">ردیف</th>
+                                        <th class="text-center">محصول</th>
+                                        <th class="text-center">نوع</th>
+                                        <th class="text-center">تاریخ شروع</th>
+                                        <th class="text-center">تاریخ پایان</th>
+                                        <th class="text-center">تاریخ ایجاد</th>
+                                        <th class="text-center">عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int row = 1;
+                                        foreach (var specialProduct in Model.SpecialProducts)
+                                        {
+                                            <tr class="text-center">
+                                                <td>@row</td>
+                                                <td>@specialProduct.Product</td>
+                                                <td>
+                                                    @{
+                                                        if (specialProduct.Type == SpecialProductType.AmazingOffer)
+                                                        {
+                                                            <a>پیشنهاد شگفت انگیز</a>
+                                                        }
+                                                        else if (specialProduct.Type == SpecialProductType.AmazingSuperMarket)
+                                                        {
+                                                            <a>شگفت انگیز سوپرمارکتی</a>
+                                                        }
+                                                        else if (specialProduct.Type == SpecialProductType.InstantOffer)
+                                                        {
+                                                            <a>پیشنهاد لحظه ای</a>
+                                                        }
+                                                    }
+                                                </td>
+                                                <td>@specialProduct.StartDate</td>
+                                                <td>@specialProduct.EndDate</td>
+                                                <td>@specialProduct.CreationDate</td>
+                                                <td>
+                                                    <a asp-area="Admin" asp-controller="SpecialProduct" asp-action="Edit" asp-route-id="@specialProduct.Id" class="btn btn-warning">ویرایش</a>
+                                                </td>
+                                            </tr>
+                                            row += 1;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
