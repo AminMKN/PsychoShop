@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PsychoShop.Infrastructure.EFCore;
 
@@ -11,9 +12,10 @@ using PsychoShop.Infrastructure.EFCore;
 namespace PsychoShop.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(PsychoShopContext))]
-    partial class PsychoShopContextModelSnapshot : ModelSnapshot
+    [Migration("20220718132344_DiscountTblAdded")]
+    partial class DiscountTblAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,7 +178,6 @@ namespace PsychoShop.Infrastructure.EFCore.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Reason")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
@@ -188,33 +189,6 @@ namespace PsychoShop.Infrastructure.EFCore.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Discounts", (string)null);
-                });
-
-            modelBuilder.Entity("PsychoShop.Domain.InventoryAgg.Inventory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("InStock")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Inventory", (string)null);
                 });
 
             modelBuilder.Entity("PsychoShop.Domain.ProductAgg.Product", b =>
@@ -587,65 +561,6 @@ namespace PsychoShop.Infrastructure.EFCore.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("PsychoShop.Domain.InventoryAgg.Inventory", b =>
-                {
-                    b.HasOne("PsychoShop.Domain.ProductAgg.Product", "Product")
-                        .WithMany("Inventory")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.OwnsMany("PsychoShop.Domain.InventoryAgg.InventoryOperation", "InventoryOperations", b1 =>
-                        {
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
-
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"), 1L, 1);
-
-                            b1.Property<int>("Count")
-                                .HasColumnType("int");
-
-                            b1.Property<DateTime>("CreationDate")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<int>("CurrentCount")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Description")
-                                .IsRequired()
-                                .HasMaxLength(1000)
-                                .HasColumnType("nvarchar(1000)");
-
-                            b1.Property<int>("InventoryId")
-                                .HasColumnType("int");
-
-                            b1.Property<bool>("Operation")
-                                .HasColumnType("bit");
-
-                            b1.Property<string>("OperatorId")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<int>("OrderId")
-                                .HasColumnType("int");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("InventoryId");
-
-                            b1.ToTable("InventoryOperations", (string)null);
-
-                            b1.WithOwner("Inventory")
-                                .HasForeignKey("InventoryId");
-
-                            b1.Navigation("Inventory");
-                        });
-
-                    b.Navigation("InventoryOperations");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("PsychoShop.Domain.ProductAgg.Product", b =>
                 {
                     b.HasOne("PsychoShop.Domain.ProductCategoryAgg.ProductCategory", "ProductCategory")
@@ -701,8 +616,6 @@ namespace PsychoShop.Infrastructure.EFCore.Migrations
             modelBuilder.Entity("PsychoShop.Domain.ProductAgg.Product", b =>
                 {
                     b.Navigation("Discounts");
-
-                    b.Navigation("Inventory");
 
                     b.Navigation("ProductPictures");
 

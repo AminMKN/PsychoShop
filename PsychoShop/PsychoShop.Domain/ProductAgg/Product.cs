@@ -1,4 +1,6 @@
-﻿using PsychoShop.Domain.ProductCategoryAgg;
+﻿using PsychoShop.Domain.DiscountAgg;
+using PsychoShop.Domain.InventoryAgg;
+using PsychoShop.Domain.ProductCategoryAgg;
 using PsychoShop.Domain.ProductPictureAgg;
 using PsychoShop.Domain.ProductSubCategoryAgg;
 using PsychoShop.Domain.SpecialProductAgg;
@@ -26,6 +28,8 @@ namespace PsychoShop.Domain.ProductAgg
         public ProductSubCategory ProductSubCategory { get; set; }
         public List<ProductPicture> ProductPictures { get; set; }
         public List<SpecialProduct> SpecialProducts { get; set; }
+        public List<Discount> Discounts { get; set; }
+        public List<Inventory> Inventory { get; set; }
 
         public Product(string name, string slug, string code, string information, string property, string description,
             string picture, string pictureAlt, string pictureTitle, string keywords, string metaDescription,
@@ -45,6 +49,8 @@ namespace PsychoShop.Domain.ProductAgg
             ProductCategoryId = productCategoryId;
             ProductSubCategoryId = productSubCategoryId;
             IsRemoved = false;
+            Discounts = new List<Discount>();
+            Inventory = new List<Inventory>();
             ProductPictures = new List<ProductPicture>();
             SpecialProducts = new List<SpecialProduct>();
         }

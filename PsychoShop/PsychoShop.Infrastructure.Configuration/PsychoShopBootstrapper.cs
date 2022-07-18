@@ -14,12 +14,15 @@ using PsychoShop.Application.Contracts.UserClaim;
 using PsychoShop.Application.Contracts.UserAccount;
 using PsychoShop.Application.Contracts.ProductCategory;
 using PsychoShop.Application.Contracts.ProductSubCategory;
-
 using PsychoShop.Infrastructure.EFCore.Repository;
 using PsychoShop.Domain.ProductPictureAgg;
 using PsychoShop.Application.Contracts.ProductPicture;
 using PsychoShop.Domain.SpecialProductAgg;
 using PsychoShop.Application.Contracts.SpecialProduct;
+using PsychoShop.Domain.DiscountAgg;
+using PsychoShop.Application.Contracts.Discount;
+using PsychoShop.Domain.InventoryAgg;
+using PsychoShop.Application.Contracts.Inventory;
 
 namespace PsychoShop.Infrastructure.Configuration
 {
@@ -54,6 +57,12 @@ namespace PsychoShop.Infrastructure.Configuration
 
             services.AddTransient<IUserClaimRepository, UserClaimRepository>();
             services.AddTransient<IUserClaimApplication, UserClaimApplication>();
+
+            services.AddTransient<IInventoryRepository, InventoryRepository>();
+            services.AddTransient<IInventoryApplication, InventoryApplication>();
+
+            services.AddTransient<IDiscountRepository, DiscountRepository>();
+            services.AddTransient<IDiscountApplication, DiscountApplication>();
 
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductApplication, ProductApplication>();

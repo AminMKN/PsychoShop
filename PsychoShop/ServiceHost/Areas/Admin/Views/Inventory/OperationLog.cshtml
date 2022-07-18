@@ -1,0 +1,55 @@
+﻿@model InventoryAdminCommand
+@{
+    ViewData["Title"] = "گردش انبار";
+}
+
+<h1 class="h3 mb-2 text-gray-800">@ViewData["Title"]</h1>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="text-center">ردیف</th>
+                        <th class="text-center">تعداد</th>
+                        <th class="text-center">موجودی فعلی</th>
+                        <th class="text-center">انجام دهنده</th>
+                        <th class="text-center">عملیات</th>
+                        <th class="text-center">تاریخ</th>
+                        <th class="text-center">توضیحات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int row = 1;
+                        foreach (var inventoryOperation in Model.InventoryOperations)
+                        {
+                            <tr class="text-white text-center @(inventoryOperation.Operation ? "bg-success" : "bg-danger")">
+                                <td>@row</td>
+                                <td>@inventoryOperation.Count</td>
+                                <td>@inventoryOperation.CurrentCount</td>
+                                <td>@inventoryOperation.Operator</td>
+                                <td>
+                                    @{
+                                        if (inventoryOperation.Operation)
+                                        {
+                                            <span>افزایش یافته</span>
+                                        }
+                                        else
+                                        {
+                                            <span>کاهش یافته</span>
+                                        }
+                                    }
+                                </td>
+                                <td>@inventoryOperation.OperationDate</td>
+                                <td>@inventoryOperation.Description</td>
+                            </tr>
+                             row += 1;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

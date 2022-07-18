@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PsychoShop.Infrastructure.EFCore;
 
@@ -11,9 +12,10 @@ using PsychoShop.Infrastructure.EFCore;
 namespace PsychoShop.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(PsychoShopContext))]
-    partial class PsychoShopContextModelSnapshot : ModelSnapshot
+    [Migration("20220718170042_InventoryTblAdded")]
+    partial class InventoryTblAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

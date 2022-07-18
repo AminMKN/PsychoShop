@@ -19,20 +19,20 @@ namespace PsychoShop.Application
 
         public async Task<IdentityResult> Add(AddOrRemoveClaim command)
         {
-            var user = await _userManager.FindByIdAsync(command.UserAccountId);
+            var userAccount = await _userManager.FindByIdAsync(command.UserAccountId);
             var requestClaims = command.UserClaimDetails
                 .Where(x => x.IsSelected)
                 .Select(x => new Claim(x.ClaimName, true.ToString())).ToList();
-            return await _userManager.AddClaimsAsync(user, requestClaims);
+            return await _userManager.AddClaimsAsync(userAccount, requestClaims);
         }
 
         public async Task<IdentityResult> Remove(AddOrRemoveClaim command)
         {
-            var user = await _userManager.FindByIdAsync(command.UserAccountId);
+            var userAccount = await _userManager.FindByIdAsync(command.UserAccountId);
             var requestClaims = command.UserClaimDetails
                 .Where(x => x.IsSelected)
                 .Select(x => new Claim(x.ClaimName, true.ToString())).ToList();
-            return await _userManager.RemoveClaimsAsync(user, requestClaims);
+            return await _userManager.RemoveClaimsAsync(userAccount, requestClaims);
         }
 
         public async Task<AddOrRemoveClaim> GetDetailsForAdd(string id)

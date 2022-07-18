@@ -32,6 +32,11 @@ namespace PsychoShop.Application
             _userAccountRepository = userAccountRepository;
         }
 
+        public async Task SignOut()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
         public async Task<SignInResult> SignIn(SignInUserAccount command)
         {
             return await _signInManager.PasswordSignInAsync(command.UserName, command.Password, command.RememberMe, false);
@@ -39,7 +44,7 @@ namespace PsychoShop.Application
 
         public async Task<IdentityResult> SignUp(SignUpUserAccount command)
         {
-            var user = new UserAccount()
+            var userAccount = new UserAccount()
             {
                 Email = command.Email,
                 UserName = command.UserName,
@@ -47,44 +52,44 @@ namespace PsychoShop.Application
                 PhoneNumber = command.PhoneNumber
             };
 
-            return await _userManager.CreateAsync(user, command.Password);
+            return await _userManager.CreateAsync(userAccount, command.Password);
         }
 
         public async Task<IdentityResult> Edit(EditUserAccount command)
         {
-            var user = await _userManager.FindByIdAsync(command.Id);
-            user.Email = command.Email;
-            user.UserName = command.UserName;
-            user.FullName = command.FullName;
-            user.PhoneNumber = command.PhoneNumber;
+            var userAccount = await _userManager.FindByIdAsync(command.Id);
+            userAccount.Email = command.Email;
+            userAccount.UserName = command.UserName;
+            userAccount.FullName = command.FullName;
+            userAccount.PhoneNumber = command.PhoneNumber;
             if (command.ProfilePhoto != null)
             {
-                var profilePhotoPath = $"{"Users"}/{user.UserName}";
+                var profilePhotoPath = $"{"Users"}/{userAccount.UserName}";
                 var profilePhoto = _fileUploader.Upload(command.ProfilePhoto, profilePhotoPath);
-                user.ProfilePhoto = profilePhoto;
+                userAccount.ProfilePhoto = profilePhoto;
             }
 
-            return await _userManager.UpdateAsync(user);
+            return await _userManager.UpdateAsync(userAccount);
         }
 
         public async Task<IdentityResult> ResetPassword(ResetPassword command)
         {
-            var user = await _userManager.FindByEmailAsync(command.Email);
-            return await _userManager.ResetPasswordAsync(user, command.Token, command.Password);
+            var userAccount = await _userManager.FindByEmailAsync(command.Email);
+            return await _userManager.ResetPasswordAsync(userAccount, command.Token, command.Password);
         }
 
         public async Task<OperationResult> ForgotPassword(ForgotPassword command)
         {
             var operation = new OperationResult();
-            var user = await _userManager.FindByEmailAsync(command.Email);
-            if (user == null)
+            var userAccount = await _userManager.FindByEmailAsync(command.Email);
+            if (userAccount == null)
                 return operation.Failed(ApplicationMessages.RequestedInfoNotFound);
 
-            var resetPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var resetPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(userAccount);
             var emailMessage = _linkGenerator.GetUriByAction(_contextAccessor.HttpContext, "ResetPassword", "UserAccount",
-                 new { email = user.Email, token = resetPasswordToken }, _contextAccessor.HttpContext.Request.Scheme);
+                 new { email = userAccount.Email, token = resetPasswordToken }, _contextAccessor.HttpContext.Request.Scheme);
 
-            await _emailSender.SendEmail(user.Email, "سایکو شاپ-تغییر کلمه عبور",
+            await _emailSender.SendEmail(userAccount.Email, "سایکو شاپ-تغییر کلمه عبور",
                 $"<a href='{emailMessage}' style='display: block; width: 120px; height: 25px; background: #9dcc1b; padding: 10px; text-align: center; border-radius: 50px; color: black; font-weight: bold; line-height: 25px;'>تغییر کلمه عبور</a>", true);
 
             return operation.Success(ApplicationMessages.SentForgotPasswordEmail);
@@ -96,11 +101,11 @@ namespace PsychoShop.Application
             if (userName == null || token == null)
                 return operation.Failed(ApplicationMessages.RequestedInfoNotFound);
 
-            var user = await _userManager.FindByNameAsync(userName);
-            if (user == null)
+            var userAccount = await _userManager.FindByNameAsync(userName);
+            if (userAccount == null)
                 return operation.Failed(ApplicationMessages.RequestedInfoNotFound);
 
-            var result = await _userManager.ConfirmEmailAsync(user, token);
+            var result = await _userManager.ConfirmEmailAsync(userAccount, token);
             if (result.Succeeded)
                 return operation.Success(ApplicationMessages.EmailConfirmed);
 
@@ -110,15 +115,15 @@ namespace PsychoShop.Application
         public async Task<OperationResult> SendEmailConfirmation()
         {
             var operation = new OperationResult();
-            var user = await _userManager.FindByIdAsync(_authHelper.GetCurrentUserAccountId());
-            if (user == null)
+            var userAccount = await _userManager.FindByIdAsync(_authHelper.GetCurrentUserAccountId());
+            if (userAccount == null)
                 return operation.Failed(ApplicationMessages.RequestedInfoNotFound);
 
-            var emailConfirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var emailConfirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(userAccount);
             var emailMessage = _linkGenerator.GetUriByAction(_contextAccessor.HttpContext, "ConfirmEmail", "UserProfile",
-                 new { userName = user.UserName, token = emailConfirmToken }, _contextAccessor.HttpContext.Request.Scheme);
+                 new { userName = userAccount.UserName, token = emailConfirmToken }, _contextAccessor.HttpContext.Request.Scheme);
 
-            await _emailSender.SendEmail(user.Email, "سایکو شاپ-فعال سازی",
+            await _emailSender.SendEmail(userAccount.Email, "سایکو شاپ-فعال سازی",
                 $"<a href='{emailMessage}' style='display: block; width: 120px; height: 25px; background: #9dcc1b; padding: 10px; text-align: center; border-radius: 50px; color: black; font-weight: bold; line-height: 25px;'>فعال سازی</a>", true);
 
             return operation.Success(ApplicationMessages.SentConfirmationEmail);
@@ -137,11 +142,6 @@ namespace PsychoShop.Application
         public async Task<List<UserAccountViewModel>> Search(UserAccountSearchModel searchModel)
         {
             return await _userAccountRepository.Search(searchModel);
-        }
-
-        public async Task SignOut()
-        {
-            await _signInManager.SignOutAsync();
         }
     }
 }

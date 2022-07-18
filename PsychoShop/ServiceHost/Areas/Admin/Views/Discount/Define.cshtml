@@ -1,0 +1,111 @@
+﻿@model DiscountAdminCommand
+@{
+    ViewData["Title"] = "تعریف تخفیف";
+    if (Model.Message == ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message == ApplicationMessages.DuplicatedInfo)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <strong class="card-title">@ViewData["Title"]</strong>
+                </div>
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="DefineDiscount.ProductId">محصول</label>
+                                    <select class="form-control" asp-for="DefineDiscount.ProductId" asp-items="Model.Products">
+                                        <option value="0">انتخاب کنید...</option>
+                                    </select>
+                                    <span asp-validation-for="DefineDiscount.ProductId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="DefineDiscount.DiscountRate">درصد تخفیف</label>
+                                    <input asp-for="DefineDiscount.DiscountRate" type="number" min="1" max="99" class="form-control" placeholder="درصد تخفیف" />
+                                    <span asp-validation-for="DefineDiscount.DiscountRate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="DefineDiscount.StartDate">تاریخ شروع</label>
+                                    <input asp-for="DefineDiscount.StartDate" type="text" class="form-control persianDateInput" placeholder="تاریخ شروع" />
+                                    <span asp-validation-for="DefineDiscount.StartDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="DefineDiscount.EndDate">تاریخ پایان</label>
+                                    <input asp-for="DefineDiscount.EndDate" type="text" class="form-control persianDateInput" placeholder="تاریخ پایان" />
+                                    <span asp-validation-for="DefineDiscount.EndDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="DefineDiscount.Reason">علت تخفیف</label>
+                                    <textarea asp-for="DefineDiscount.Reason" class="form-control" placeholder="علت تخفیف"></textarea>
+                                    <span asp-validation-for="DefineDiscount.Reason" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">تعریف</button>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="Discount" asp-action="Index">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Css
+    {
+    <link href="~/AdminTheme/datepicker/css/persian-datepicker.min.css" rel="stylesheet" />
+}
+
+    @section Scripts
+    {
+    <script src="~/AdminTheme/datepicker/js/persian-date.min.js"></script>
+    <script src="~/AdminTheme/datepicker/js/persian-datepicker.min.js"></script>
+    <script>
+        $('.persianDateInput').persianDatepicker({
+            format: 'YYYY/MM/DD',
+            autoClose: true,
+            initialValueType: "persian"
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

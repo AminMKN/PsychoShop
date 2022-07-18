@@ -1,0 +1,65 @@
+﻿@model InventoryAdminCommand
+@{
+    ViewData["Title"] = "کاهش موجودی";
+    if (Model.Message == ApplicationMessages.TaskSuccessful)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message == ApplicationMessages.RequestedInfoNotFound || Model.Message == ApplicationMessages.TheCountIsMoreTheInventory)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی سایکو شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+    </div>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="ReduceInventory.InventoryId" value="@Model.ReduceInventory.InventoryId" />
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ReduceInventory.Count">تعداد</label>
+                        <input asp-for="ReduceInventory.Count" type="number" min="1" class="form-control" placeholder="تعداد" />
+                        <span asp-validation-for="ReduceInventory.Count" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ReduceInventory.Description">توضیحات</label>
+                        <input asp-for="ReduceInventory.Description" type="text" class="form-control" placeholder="توضیحات" />
+                        <span asp-validation-for="ReduceInventory.Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success">کاهش</button>
+            <a class="btn btn-primary" asp-area="Admin" asp-controller="Inventory" asp-action="Index">بازگشت</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+    {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

@@ -1,0 +1,67 @@
+﻿@model InventoryAdminCommand
+@{
+    ViewData["Title"] = "انبار";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <form method="get" class="form-inline">
+                <div class="custom-control custom-checkbox">
+                    <input asp-for="SearchModel.InStock" type="checkbox" class="custom-control-input">
+                    <label asp-for="SearchModel.InStock" class="custom-control-label">جستجو در ناموجود ها</label>
+                </div>
+                <select class="form-control mr-1" asp-for="SearchModel.ProductId" asp-items="Model.Products">
+                    <option value="0">محصول...</option>
+                </select>
+                <button type="submit" class="btn btn-success mr-1">جستجو</button>
+                <a asp-area="Admin" asp-controller="Inventory" asp-action="Index" class="btn btn-primary mr-1">مشاهده همه</a>
+                <a asp-area="Admin" asp-controller="Inventory" asp-action="Create" class="btn btn-info mr-1">ایجاد انبار</a>
+            </form>
+            <hr />
+            <h2 class="mb-2 page-title">@ViewData["Title"]</h2>
+            <div class="row my-4">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <table class="table datatables" id="dataTable-1">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">ردیف</th>
+                                        <th class="text-center">محصول</th>
+                                        <th class="text-center">قیمت</th>
+                                        <th class="text-center">موجودی انبار</th>
+                                        <th class="text-center">تاریخ ایجاد</th>
+                                        <th class="text-center">عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int row = 1;
+                                        foreach (var inventory in Model.Inventory)
+                                        {
+                                            <tr class="text-center">
+                                                <td>@row</td>
+                                                <td>@inventory.Product</td>
+                                                <td>@inventory.Price.ToMoney()</td>
+                                                <td>@inventory.CurrentCount</td>
+                                                <td>@inventory.CreationDate</td>
+                                                <td>
+                                                    <a asp-area="Admin" asp-controller="Inventory" asp-action="Increase" asp-route-id="@inventory.Id" class="btn btn-success">افزایش موجودی</a>
+                                                    <a asp-area="Admin" asp-controller="Inventory" asp-action="Reduce" asp-route-id="@inventory.Id" class="btn btn-danger">کاهش موجودی</a>
+                                                    <a asp-area="Admin" asp-controller="Inventory" asp-action="OperationLog" asp-route-id="@inventory.Id" class="btn btn-primary">مشاهده گردش انبار</a>
+                                                    <a asp-area="Admin" asp-controller="Inventory" asp-action="Edit" asp-route-id="@inventory.Id" class="btn btn-warning">ویرایش</a>
+                                                </td>
+                                            </tr>
+                                            row += 1;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

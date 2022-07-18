@@ -1,0 +1,64 @@
+﻿@model DiscountAdminCommand
+@{
+    ViewData["Title"] = "تخفیفات";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <form method="get" class="form-inline">
+                <select class="form-control mr-1" asp-for="SearchModel.ProductId" asp-items="Model.Products">
+                    <option value="0">محصول...</option>
+                </select>
+                <button type="submit" class="btn btn-success mr-1">جستجو</button>
+                <a asp-area="Admin" asp-controller="Discount" asp-action="Index" class="btn btn-primary mr-1">مشاهده همه</a>
+                <a asp-area="Admin" asp-controller="Discount" asp-action="Define" class="btn btn-info mr-1">تعریف تخفیف</a>
+            </form>
+            <hr />
+            <h2 class="mb-2 page-title">@ViewData["Title"]</h2>
+            <div class="row my-4">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <table class="table datatables" id="dataTable-1">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">ردیف</th>
+                                        <th class="text-center">محصول</th>
+                                        <th class="text-center">درصد تخفیف</th>
+                                        <th class="text-center">تاریخ شروع</th>
+                                        <th class="text-center">تاریخ پایان</th>
+                                        <th class="text-center">علت تخفیف</th>
+                                        <th class="text-center">تاریخ ایجاد</th>
+                                        <th class="text-center">عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int row = 1;
+                                        foreach (var discount in Model.Discounts)
+                                        {
+                                            <tr class="text-center">
+                                                <td>@row</td>
+                                                <td>@discount.Product</td>
+                                                <td>@discount.DiscountRate%</td>
+                                                <td>@discount.StartDate</td>
+                                                <td>@discount.EndDate</td>
+                                                <td>@discount.Reason</td>
+                                                <td>@discount.CreationDate</td>
+                                                <td>
+                                                    <a asp-area="Admin" asp-controller="Discount" asp-action="Edit" asp-route-id="@discount.Id" class="btn btn-warning">ویرایش</a>
+                                                </td>
+                                            </tr>
+                                            row += 1;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

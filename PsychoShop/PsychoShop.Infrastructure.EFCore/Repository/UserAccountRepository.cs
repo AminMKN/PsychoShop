@@ -17,31 +17,37 @@ namespace PsychoShop.Infrastructure.EFCore.Repository
             _userManager = userManager;
         }
 
+        public async Task<string> GetUserName(string userAccountId)
+        {
+            var userAccount = await _userManager.FindByIdAsync(userAccountId);
+            return userAccount.UserName;
+        }
+
         public async Task<EditUserAccount> GetDetails(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var userAccount = await _userManager.FindByIdAsync(id);
             return new EditUserAccount()
             {
-                Id = user.Id,
-                Email = user.Email,
-                FullName = user.FullName,
-                UserName = user.UserName,
-                PhoneNumber = user.PhoneNumber
+                Id = userAccount.Id,
+                Email = userAccount.Email,
+                FullName = userAccount.FullName,
+                UserName = userAccount.UserName,
+                PhoneNumber = userAccount.PhoneNumber
             };
         }
 
         public async Task<UserAccountViewModel> GetCurrentUserAccountInfo()
         {
-            var user = await _userManager.FindByIdAsync(_authHelper.GetCurrentUserAccountId());
+            var userAccount = await _userManager.FindByIdAsync(_authHelper.GetCurrentUserAccountId());
             return new UserAccountViewModel()
             {
-                Id = user.Id,
-                Email = user.Email,
-                UserName = user.UserName,
-                FullName = user.FullName,
-                PhoneNumber = user.PhoneNumber,
-                ProfilePhoto = user.ProfilePhoto,
-                EmailConfirmed = user.EmailConfirmed
+                Id = userAccount.Id,
+                Email = userAccount.Email,
+                UserName = userAccount.UserName,
+                FullName = userAccount.FullName,
+                PhoneNumber = userAccount.PhoneNumber,
+                ProfilePhoto = userAccount.ProfilePhoto,
+                EmailConfirmed = userAccount.EmailConfirmed
             };
         }
 

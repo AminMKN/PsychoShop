@@ -5,6 +5,7 @@ namespace PsychoShop.Application.Contracts.UserAccount
 {
     public interface IUserAccountApplication
     {
+        Task SignOut();
         Task<SignInResult> SignIn(SignInUserAccount command);
         Task<IdentityResult> SignUp(SignUpUserAccount command);
         Task<IdentityResult> Edit(EditUserAccount command);
@@ -15,6 +16,5 @@ namespace PsychoShop.Application.Contracts.UserAccount
         Task<EditUserAccount> GetDetails(string id);
         Task<UserAccountViewModel> GetCurrentUserAccountInfo();
         Task<List<UserAccountViewModel>> Search(UserAccountSearchModel searchModel);
-        Task SignOut();
     }
 }
