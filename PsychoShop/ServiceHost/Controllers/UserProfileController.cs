@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PsychoShop.Application.Contracts.Order;
 using PsychoShop.Application.Contracts.UserAccount;
 using PsychoShop.Framework.Application;
 using PsychoShop.Framework.Application.AuthHelper;
@@ -11,12 +12,14 @@ namespace ServiceHost.Controllers
     public class UserProfileController : Controller
     {
         private readonly IAuthHelper _authHelper;
+        private readonly IOrderApplication _orderApplication;
         private readonly IUserAccountApplication _userAccountApplication;
 
-        public UserProfileController(IUserAccountApplication userAccountApplication, IAuthHelper authHelper)
+        public UserProfileController(IUserAccountApplication userAccountApplication, IAuthHelper authHelper, IOrderApplication orderApplication)
         {
             _authHelper = authHelper;
             _userAccountApplication = userAccountApplication;
+            _orderApplication = orderApplication;
         }
 
         #region Index
@@ -76,6 +79,21 @@ namespace ServiceHost.Controllers
                     command.Message = error.Description;
                 }
             }
+
+            return View(command);
+        }
+
+        #endregion
+
+        #region Orders
+
+        [HttpGet]
+        public async Task<IActionResult> Orders()
+        {
+            var command = new UserProfileCommand()
+            {
+                Orders = await _orderApplication.GetCurrentUserAccountOrders(_authHelper.GetCurrentUserAccountId())
+            };
 
             return View(command);
         }

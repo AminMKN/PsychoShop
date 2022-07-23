@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsychoShop.Infrastructure.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsychoShop.Framework", "PsychoShop.Framework\PsychoShop.Framework.csproj", "{C2FE8625-62F2-4829-A4AC-1C7703528357}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsychoShop.Infrastructure.Configuration", "PsychoShop.Infrastructure.Configuration\PsychoShop.Infrastructure.Configuration.csproj", "{07120E29-A25A-4C67-9316-C3AA89653757}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsychoShop.Infrastructure.Configuration", "PsychoShop.Infrastructure.Configuration\PsychoShop.Infrastructure.Configuration.csproj", "{07120E29-A25A-4C67-9316-C3AA89653757}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsychoShop.Query", "PsychoShop.Query\PsychoShop.Query.csproj", "{FD6E0A4E-D130-4DC1-A4C6-7A65B40312B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{07120E29-A25A-4C67-9316-C3AA89653757}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07120E29-A25A-4C67-9316-C3AA89653757}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07120E29-A25A-4C67-9316-C3AA89653757}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD6E0A4E-D130-4DC1-A4C6-7A65B40312B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD6E0A4E-D130-4DC1-A4C6-7A65B40312B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD6E0A4E-D130-4DC1-A4C6-7A65B40312B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD6E0A4E-D130-4DC1-A4C6-7A65B40312B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

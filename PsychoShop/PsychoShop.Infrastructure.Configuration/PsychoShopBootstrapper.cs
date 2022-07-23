@@ -23,6 +23,17 @@ using PsychoShop.Domain.DiscountAgg;
 using PsychoShop.Application.Contracts.Discount;
 using PsychoShop.Domain.InventoryAgg;
 using PsychoShop.Application.Contracts.Inventory;
+using PsychoShop.Query.Query;
+using PsychoShop.Query.Contract.ProductSubCategory;
+using PsychoShop.Query.Contract.ProductCategory;
+using PsychoShop.Query.Contract.Product;
+using PsychoShop.Application.Contracts.Comment;
+using PsychoShop.Domain.CommentAgg;
+using PsychoShop.Domain.OrderAgg;
+using PsychoShop.Application.Contracts.Order;
+using PsychoShop.Domain.Services;
+using PsychoShop.Application.Contracts.ShopCart;
+using PsychoShop.Query.Contract;
 
 namespace PsychoShop.Infrastructure.Configuration
 {
@@ -78,6 +89,24 @@ namespace PsychoShop.Infrastructure.Configuration
 
             services.AddTransient<IProductSubCategoryRepository, ProductSubCategoryRepository>();
             services.AddTransient<IProductSubCategoryApplication, ProductSubCategoryApplication>();
+
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<ICommentApplication, CommentApplication>();
+
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IOrderApplication, OrderApplication>();
+
+            services.AddSingleton<ICartService, CartService>();
+
+            services.AddTransient<IShopInventoryAcl, ShopInventoryAcl>();
+
+            services.AddTransient<ICartCalculatorService, CartCalculatorService>();
+
+            services.AddTransient<IProductQuery, ProductQuery>();
+
+            services.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();
+
+            services.AddTransient<IProductSubCategoryQuery, ProductSubCategoryQuery>();
 
             services.AddDbContext<PsychoShopContext>(x => x.UseSqlServer(connectionString));
         }

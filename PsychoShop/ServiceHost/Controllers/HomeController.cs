@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PsychoShop.Application.Contracts.UserAccount;
 using ServiceHost.Models;
 using System.Diagnostics;
 
@@ -7,6 +6,7 @@ namespace ServiceHost.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

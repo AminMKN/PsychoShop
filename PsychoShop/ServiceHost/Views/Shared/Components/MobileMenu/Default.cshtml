@@ -1,0 +1,72 @@
+﻿@model List<PsychoShop.Query.Contract.ProductCategory.ProductCategoryQueryModel>
+
+<nav class="sidebar">
+    <div class="nav-header">
+        <div class="header-cover"></div>
+        <div class="logo-wrap">
+            <a class="logo-icon">
+                <img src="~/Theme/assets/images/shoplogo.jpg" width="40" alt="PsychoShop" title="PsychoShop">
+            </a>
+        </div>
+    </div>
+    <ul class="nav-categories ul-base">
+        <li class="has-sub">
+            <a>
+                <i class="mdi mdi-menu"></i>
+                دسته بندی کالاها
+            </a>
+            <ul>
+                @{
+                    foreach (var productCategory in Model)
+                    {
+                        <li class="has-sub">
+                            <a asp-controller="Shop" asp-action="ProductCategory" asp-route-id="@productCategory.Slug" class="category-level-2">@productCategory.Name</a>
+                            <ul>
+                                @{
+                                    foreach (var productSubCategory in productCategory.ProductSubCategories)
+                                    {
+                                        <li><a asp-controller="Shop" asp-action="ProductSubCategory" asp-route-id="@productSubCategory.Slug" class="category-level-3">@productSubCategory.Name</a></li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                    }
+                }
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a>
+                <i class="mdi mdi-sale text-danger"></i>
+                تخفیف و پیشنهاد ها
+            </a>
+            <ul>
+                <li><a asp-controller="SpecialProduct" asp-action="Discount" class="category-level-2">مشاهده همه تخفیف ها</a></li>
+                <li><a asp-controller="SpecialProduct" asp-action="AmazingOffer" class="category-level-2">مشاهده همه پیشنهاد ها</a></li>
+            </ul>
+        </li>
+        <li>
+            <a asp-controller="SpecialProduct" asp-action="AmazingSuperMarket">
+                <i class="mdi mdi-store text-warning"></i>
+                سوپر مارکت
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="mdi mdi-marker-check text-success"></i>
+                سایکو شاپ من
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="mdi mdi-plus-outline text-primary"></i>
+                سایکو پلاس
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="nav-btn">
+    <span class="linee1"></span>
+    <span class="linee2"></span>
+    <span class="linee3"></span>
+</div>
+<div class="overlay"></div>

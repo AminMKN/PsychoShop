@@ -10,6 +10,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Shared\Components\AmazingOffer\Default.cshtml" />
+    <None Include="Views\Shared\Components\AmazingSuperMarket\Default.cshtml" />
+    <None Include="Views\Shared\Components\InstantOffer\Default.cshtml" />
+    <None Include="Views\Shared\Components\MainMenu\Default.cshtml" />
+    <None Include="Views\Shared\Components\MobileMenu\Default.cshtml" />
+    <None Include="Views\Shared\Components\Product\Default.cshtml" />
+    <None Include="Views\Shared\Components\ProfileNav\Default.cshtml" />
     <None Include="wwwroot\AdminTheme\datepicker\js\persian-date.min.js" />
     <None Include="wwwroot\AdminTheme\datepicker\js\persian-datepicker.min.js" />
     <None Include="wwwroot\lib\ckeditor\adapters\jquery.js" />
@@ -195,12 +202,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.6" />
+    <PackageReference Include="Nancy" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PsychoShop.Application.Contracts\PsychoShop.Application.Contracts.csproj" />
     <ProjectReference Include="..\PsychoShop.Framework\PsychoShop.Framework.csproj" />
     <ProjectReference Include="..\PsychoShop.Infrastructure.Configuration\PsychoShop.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\PsychoShop.Query\PsychoShop.Query.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PsychoShop.Domain.CommentAgg;
 using PsychoShop.Domain.DiscountAgg;
 using PsychoShop.Domain.InventoryAgg;
+using PsychoShop.Domain.OrderAgg;
 using PsychoShop.Domain.ProductAgg;
 using PsychoShop.Domain.ProductCategoryAgg;
 using PsychoShop.Domain.ProductPictureAgg;
@@ -14,6 +16,8 @@ namespace PsychoShop.Infrastructure.EFCore
 {
     public class PsychoShopContext : IdentityDbContext<UserAccount>
     {
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Inventory> Inventory { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Product> Products { get; set; }

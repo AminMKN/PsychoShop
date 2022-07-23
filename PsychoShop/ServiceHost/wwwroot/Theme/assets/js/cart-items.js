@@ -1,4 +1,4 @@
-﻿const cookieName = "ElectronShop-Cart-Items";
+﻿const cookieName = "PsychoShop-Cart-Items";
 function addToCart(id, name, price, picture) {
     let products = $.cookie(cookieName);
     if (products === undefined) {

@@ -1,4 +1,5 @@
-﻿using PsychoShop.Application.Contracts.UserAccount;
+﻿using PsychoShop.Application.Contracts.Order;
+using PsychoShop.Application.Contracts.UserAccount;
 
 namespace ServiceHost.Models
 {
@@ -7,5 +8,6 @@ namespace ServiceHost.Models
         public string Message { get; set; }
         public EditUserAccount EditUserAccount { get; set; }
         public UserAccountViewModel UserAccount { get; set; }
+        public List<OrderViewModel> Orders { get; set; }
     }
 }

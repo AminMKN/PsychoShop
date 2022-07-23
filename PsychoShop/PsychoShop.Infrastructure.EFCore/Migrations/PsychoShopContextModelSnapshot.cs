@@ -155,6 +155,40 @@ namespace PsychoShop.Infrastructure.EFCore.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("PsychoShop.Domain.CommentAgg.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserAccountId")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Comments", (string)null);
+                });
+
             modelBuilder.Entity("PsychoShop.Domain.DiscountAgg.Discount", b =>
                 {
                     b.Property<int>("Id")
@@ -215,6 +249,62 @@ namespace PsychoShop.Infrastructure.EFCore.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Inventory", (string)null);
+                });
+
+            modelBuilder.Entity("PsychoShop.Domain.OrderAgg.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("DiscountAmount")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("IssueTrackingNo")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<double>("PayAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("RefId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserAccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("PsychoShop.Domain.ProductAgg.Product", b =>
@@ -576,6 +666,17 @@ namespace PsychoShop.Infrastructure.EFCore.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PsychoShop.Domain.CommentAgg.Comment", b =>
+                {
+                    b.HasOne("PsychoShop.Domain.ProductAgg.Product", "Product")
+                        .WithMany("Comments")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("PsychoShop.Domain.DiscountAgg.Discount", b =>
                 {
                     b.HasOne("PsychoShop.Domain.ProductAgg.Product", "Product")
@@ -646,6 +747,49 @@ namespace PsychoShop.Infrastructure.EFCore.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("PsychoShop.Domain.OrderAgg.Order", b =>
+                {
+                    b.OwnsMany("PsychoShop.Domain.OrderAgg.OrderItem", "OrderItems", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"), 1L, 1);
+
+                            b1.Property<int>("Count")
+                                .HasColumnType("int");
+
+                            b1.Property<DateTime>("CreationDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<int>("DiscountRate")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("OrderId")
+                                .HasColumnType("int");
+
+                            b1.Property<double>("Price")
+                                .HasColumnType("float");
+
+                            b1.Property<int>("ProductId")
+                                .HasColumnType("int");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("OrderId");
+
+                            b1.ToTable("OrderItems", (string)null);
+
+                            b1.WithOwner("Order")
+                                .HasForeignKey("OrderId");
+
+                            b1.Navigation("Order");
+                        });
+
+                    b.Navigation("OrderItems");
+                });
+
             modelBuilder.Entity("PsychoShop.Domain.ProductAgg.Product", b =>
                 {
                     b.HasOne("PsychoShop.Domain.ProductCategoryAgg.ProductCategory", "ProductCategory")
@@ -700,6 +844,8 @@ namespace PsychoShop.Infrastructure.EFCore.Migrations
 
             modelBuilder.Entity("PsychoShop.Domain.ProductAgg.Product", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Discounts");
 
                     b.Navigation("Inventory");

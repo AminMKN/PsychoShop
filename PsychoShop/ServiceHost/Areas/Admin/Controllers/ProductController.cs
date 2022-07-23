@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PsychoShop.Application.Contracts.Product;
 using PsychoShop.Application.Contracts.ProductCategory;
@@ -9,6 +10,7 @@ using ServiceHost.Areas.Admin.Models;
 namespace ServiceHost.Areas.Admin.Controllers
 {
     [Area(AreaName.Admin)]
+    [Authorize(Policy = "ProductPolicy")]
     public class ProductController : Controller
     {
         private readonly IProductApplication _productApplication;

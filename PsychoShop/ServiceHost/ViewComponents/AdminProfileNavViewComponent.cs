@@ -19,8 +19,8 @@ namespace ServiceHost.ViewComponents
         {
             if (_signInManager.IsSignedIn((System.Security.Claims.ClaimsPrincipal)User))
             {
-                var profile = await _userAccountApplication.GetCurrentUserAccountInfo();
-                return View(profile);
+                var userAccount = await _userAccountApplication.GetCurrentUserAccountInfo();
+                return View(userAccount);
             }
 
             return View(new UserAccountViewModel());
